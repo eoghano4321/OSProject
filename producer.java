@@ -1,8 +1,25 @@
 import java.net.*;
 import java.io.*;
 
-public class producer {
-    public void serverSocket(){
+class Producer implements Runnable
+{
+    private int loop_counter;
+
+    public Producer(int loops) {
+        this.loop_counter = loops;
+        
+    }
+
+    public void run() {
+        int num = 0;
+        while(num < loop_counter) {
+            num++;
+        }
+        System.out.println("Producer finished");
+    
+    }
+  
+  public void serverSocket(){
         try{
             ServerSocket sock = new ServerSocket(6013);
             // now listen for connections
@@ -24,5 +41,5 @@ public class producer {
         catch(IOException ioe){
             System.err.println(ioe);
         }
-    }
+  }
 }
