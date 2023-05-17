@@ -8,7 +8,6 @@ class Producer implements Runnable
 
     public Producer(int loops) {
         this.loop_counter = loops;
-        
     }
 
     public void run() {
@@ -40,6 +39,10 @@ class Producer implements Runnable
                 objectOutputStream.writeObject(menu);
 
                 // get input from client for menu item
+
+                // fork 
+                
+
                 // send back waiting time
                 // wait amount of time
                 // send food done
