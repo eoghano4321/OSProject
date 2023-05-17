@@ -7,7 +7,6 @@ class Producer implements Runnable
 
     public Producer(int loops) {
         this.loop_counter = loops;
-        
     }
 
     public void run() {
@@ -29,6 +28,10 @@ class Producer implements Runnable
                 PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
                 // create menu and send it ...
                 // get input from client for menu item
+
+                // fork 
+                
+
                 // send back waiting time
                 // wait amount of time
                 // send food done
