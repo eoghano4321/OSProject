@@ -40,8 +40,23 @@ class Producer implements Runnable
 
                 // get input from client for menu item
 
+                ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
+                int[] order = null;
+                try {
+                    order = (int[]) objectInputStream.readObject();
+                } catch (ClassNotFoundException e) {
+                    // handle class not found exception
+                }
+                for (int key = 0; key < order.length; key++) {
+                    if(order[key] != 0){
+                        System.out.println("Ordered: " + menu.get(order[key]));
+                    }
+                }
+
+
                 // fork 
                 
+
 
                 // send back waiting time
                 // wait amount of time

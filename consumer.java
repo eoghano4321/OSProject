@@ -5,17 +5,21 @@ import java.util.*;
 class Consumer implements Runnable
 {
     private int loop_counter;
+    public int maxOrderSize;
+    public Scanner scanner = new Scanner(System.in);
 
     public Consumer(int loops) {
         loop_counter = loops;
     }
 
     public void run() {
-        int num = 0;
-        int val = 0;
-        while(num < loop_counter) {
-            num++;
-        }
+        
+        // Get number of customers
+        System.out.println("How many customers are there?");
+        
+        int numCustomers = scanner.nextInt();
+        
+        this.maxOrderSize = 3 * numCustomers;
         clientSocket();
         System.out.println("Consumer finished");
     }
@@ -38,28 +42,42 @@ class Consumer implements Runnable
             for (Integer key : menu.keySet()) {
                 System.out.println(key + ". " + menu.get(key));
             }
+
             System.out.println("Please enter the numbers of the item you would like to order: (Press enter after each number and enter 0 when finished)");
-            Scanner scanner = new Scanner(System.in);
-            int input = scanner.nextInt();
+            //Scanner scanner = new Scanner(System.in);
+            int input = this.scanner.nextInt();
+            int[] order = new int[this.maxOrderSize]; // max order size is 3 * numCustomers
+            int i = 0;
+
+
             // Could use a gui to display the menu and get the input instead of the console but we can do that later
             while (input != 0) {
-                System.out.println("You entered: " + input);
-                input = scanner.nextInt();
+                if(i >= this.maxOrderSize){
+                    System.out.println("You can only order 3 dishes per person.");
+                    input = 0;
+                    continue;
+                }
+                else{
+                    order[i] = input;
+                    System.out.println("You entered: " + input);
+                    input = this.scanner.nextInt();
+                    i += 1;
+                }
             }
             scanner.close();
-            // Need to add the inputs to an array and send it to the server for it to process
+            System.out.println("Your order: " + Arrays.toString(order));
 
-            //read from socket using input stream
-            // BufferedReader bin = new BufferedReader(new InputStreamReader(in));
+            // Send the order to the server
+            OutputStream out = sock.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
+            objectOutputStream.writeObject(order);
+            objectOutputStream.flush();
+            
 
-            // String line;
-            // while((line = bin.readLine()) != null)
-            //     System.out.println(line);
+            // Get the waiting time from the server
 
-            //get input on menu selection
-            //send input to server
-            //get waiting time from server
-            //get food done from server
+           
+            // Get food done from server
 
             
             //close the socket connection
