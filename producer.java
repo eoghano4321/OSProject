@@ -8,7 +8,6 @@ class Producer implements Runnable
 
     public Producer(int loops) {
         this.loop_counter = loops;
-        
     }
 
     public void run() {
@@ -40,6 +39,7 @@ class Producer implements Runnable
                 objectOutputStream.writeObject(menu);
 
                 // get input from client for menu item
+
                 ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
                 int[] order = null;
                 try {
@@ -52,6 +52,11 @@ class Producer implements Runnable
                         System.out.println("Ordered: " + menu.get(order[key]));
                     }
                 }
+
+
+                // fork 
+                
+
 
                 // send back waiting time
                 // wait amount of time
