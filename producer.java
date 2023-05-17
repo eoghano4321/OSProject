@@ -1,6 +1,7 @@
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ForkJoinPool;
 
 class Producer implements Runnable
 {
@@ -47,15 +48,19 @@ class Producer implements Runnable
                 } catch (ClassNotFoundException e) {
                     // handle class not found exception
                 }
+                List<String> ordered = new ArrayList<String>();
                 for (int key = 0; key < order.length; key++) {
                     if(order[key] != 0){
                         System.out.println("Ordered: " + menu.get(order[key]));
+                        ordered.add(menu.get(order[key]));
                     }
                 }
 
 
                 // fork 
-                
+                ForkJoinPool kitchen = new ForkJoinPool();
+                makeFood cooked = new makeFood(ordered);
+                System.out.println("You're food is done: " + kitchen.invoke(cooked));
 
 
                 // send back waiting time

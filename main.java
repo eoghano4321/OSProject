@@ -20,10 +20,5 @@ public class main{
         }
         catch (InterruptedException ie) {};
 
-        ForkJoinPool kitchen = new ForkJoinPool();
-        List<String> order = Arrays.asList("burger", "chips", "drink","pizza","Ice-Cream","chicken","fries","brownie","cookies","soda","coke","chips","pizza");
-        makeFood cooked = new makeFood(order);
-        System.out.println(kitchen.invoke(cooked));
-
     }
 }
