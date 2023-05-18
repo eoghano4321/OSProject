@@ -1,4 +1,9 @@
 # OSProject
 OS Project for CS4442
 
-yay
+Food order Server Client
+Created by Eoghan OMahony and Dervla Gargan
+
+## Steps to run
+1. Run the main.py file
+2. Follow 
