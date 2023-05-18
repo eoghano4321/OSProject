@@ -1,18 +1,19 @@
 package src;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 public class mainTest {
     @Test
-    void testMain() {
-        String simulatedUserInput = "1\n1\n2\n3\n"; // Example input
+    void testMainCourse() {
+        List<String> ordered = new ArrayList<String>();
+        ordered.add("soup");
 
-        InputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
-        System.setIn(inputStream);
-
-        Consumer consumer = new Consumer();
-        consumer.run();
-        assert consumer.orderString == "Your order: [1, 2, 3]";
+        mainCourse main = new mainCourse();
+        main.prepare();
+        assert main.getFood(ordered).equals("soup, ");
     }
 }
