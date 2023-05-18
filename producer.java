@@ -33,11 +33,17 @@ class Producer implements Runnable
                 //connection made
                 PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
 
-                Hashtable<Integer, String> menu = new Hashtable<Integer, String>();
-                menu = createMenu();
-                System.out.println("Menu: " + menu);
+                Hashtable<Integer, String> starters = new Hashtable<Integer, String>();
+                Hashtable<Integer, String> mains = new Hashtable<Integer, String>();
+                Hashtable<Integer, String> desserts = new Hashtable<Integer, String>();
+                starters = createStarters();
+                mains = createMains();
+                desserts = createDesserts();
+                System.out.println("MENU: Starters: " + starters + " Mains: " + mains + " Desserts: " + desserts);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                objectOutputStream.writeObject(menu);
+                objectOutputStream.writeObject(starters);
+                objectOutputStream.writeObject(mains);
+                objectOutputStream.writeObject(desserts);
 
                 // get input from client for menu item
 
@@ -49,10 +55,18 @@ class Producer implements Runnable
                     // handle class not found exception
                 }
                 List<String> ordered = new ArrayList<String>();
-                for (int key = 0; key < order.length; key++) {
-                    if(order[key] != 0){
-                        System.out.println("Ordered: " + menu.get(order[key]));
-                        ordered.add(menu.get(order[key]));
+                for (int i = 0; i < order.length; i = i+3) {
+                    if(order[i] != 0){
+                        System.out.println("Ordered: " + starters.get(order[i]));
+                        ordered.add(starters.get(order[i]));
+                    }
+                    if(order[i+1] != 0){
+                        System.out.println("Ordered: " + mains.get(order[i+1]));
+                        ordered.add(mains.get(order[i+1]));
+                    }
+                    if(order[i+2] != 0){
+                        System.out.println("Ordered: " + desserts.get(order[i+2]));
+                        ordered.add(desserts.get(order[i+2]));
                     }
                 }
 
@@ -79,18 +93,38 @@ class Producer implements Runnable
     }
     
 
-    public Hashtable<Integer, String> createMenu(){
-        Hashtable<Integer, String> menu = new Hashtable<Integer, String>();
-        menu.put(1, "Steak");
-        menu.put(2, "Chicken");
-        menu.put(3, "Pasta");
-        menu.put(4, "Salad");
-        menu.put(5, "Soup");
-        menu.put(6, "Bread");
-        menu.put(7, "Water");
-        menu.put(8, "Soda");
-        menu.put(9, "Beer");
-        menu.put(10, "Wine");
-        return menu;
+    public Hashtable<Integer, String> createStarters(){
+        Hashtable<Integer, String> starters = new Hashtable<Integer, String>();
+        starters.put(1, "Salad");
+        starters.put(2, "Soup");
+        starters.put(3, "Pasta");
+        starters.put(4, "Bread");
+        starters.put(5, "Cheese");
+        starters.put(6, "Fish");
+        return starters;
+    }
+
+    //create Mains
+    public Hashtable<Integer, String> createMains(){
+        Hashtable<Integer, String> mains = new Hashtable<Integer, String>();
+        mains.put(1, "Steak");
+        mains.put(2, "Chicken");
+        mains.put(3, "Pork");
+        mains.put(4, "Fish");
+        mains.put(5, "Lamb");
+        mains.put(6, "Vegetarian");
+        return mains;
+    }
+
+    //create Desserts
+    public Hashtable<Integer, String> createDesserts(){
+        Hashtable<Integer, String> desserts = new Hashtable<Integer, String>();
+        desserts.put(1, "Ice Cream");
+        desserts.put(2, "Cake");
+        desserts.put(3, "Pie");
+        desserts.put(4, "Fruit");
+        desserts.put(5, "Cheese");
+        desserts.put(6, "Chocolate");
+        return desserts;
     }
 }
