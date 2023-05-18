@@ -5,25 +5,21 @@ import java.util.concurrent.ForkJoinPool;
 
 class Producer implements Runnable
 {
-    private int loop_counter;
-
-    public Producer(int loops) {
-        this.loop_counter = loops;
+    public Producer() {
     }
 
     public void run() {
-        int num = 0;
-        while(num < loop_counter) {
-            num++;
-        }
+        // start server socket
         System.out.println("Producer started");
-        serverSocket();
-        System.out.println("Producer finished");
+
+        serverSocket(); // Call the server socket method
+        System.out.println("Producer finished"); // Print out that the producer has finished once the server socket method has finished
     
     }
   
     public void serverSocket(){
         try{
+            //create the socket server object - localhost
             ServerSocket sock = new ServerSocket(6013);
             // now listen for connections
             
@@ -103,7 +99,11 @@ class Producer implements Runnable
         }
     }
     
+    // Create the hashtable for the menu items
+    // Each course gets a hashtable
+    // To add new menu items, add them to the hashtable
 
+    // create Starters
     public Hashtable<Integer, String> createStarters(){
         Hashtable<Integer, String> starters = new Hashtable<Integer, String>();
         starters.put(1, "Salad");
