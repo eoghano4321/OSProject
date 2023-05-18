@@ -1,15 +1,11 @@
 package src;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-
 import org.testng.annotations.Test;
 
-
-public class OrderTest{
-
+public class mainTest {
     @Test
-    public void testFoodOrder(){
-
+    void testMain() {
         String simulatedUserInput = "1\n1\n2\n3\n"; // Example input
 
         InputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());

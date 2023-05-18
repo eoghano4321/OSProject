@@ -1,11 +1,15 @@
 package src;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.testng.annotations.Test;
 
-
-public class OrderTest{
+public class desertCourseTest {
+    @Test
+    void testMakeFood() {
+        assert true;
+    }
 
     @Test
     public void testFoodOrder(){
