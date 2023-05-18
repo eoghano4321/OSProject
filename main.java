@@ -1,7 +1,3 @@
-import java.util.List;
-import java.util.Arrays;
-import java.util.concurrent.ForkJoinPool;
-
 public class main{
     public static void main(String[] args){
         

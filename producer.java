@@ -54,27 +54,38 @@ class Producer implements Runnable
                 } catch (ClassNotFoundException e) {
                     // handle class not found exception
                 }
-                List<String> ordered = new ArrayList<String>();
+                Restaurant starterKitchen = new starterRestaurant();
+                Restaurant mainKitchen = new mainRestaurant();
+                Restaurant desertKitchen = new desertRestaurant();
+
+                
+    
+                List<String> chosenStarters = new ArrayList<String>();
+                List<String> chosenMains = new ArrayList<String>();
+                List<String> chosenDeserts = new ArrayList<String>();
                 for (int i = 0; i < order.length; i = i+3) {
                     if(order[i] != 0){
                         System.out.println("Ordered: " + starters.get(order[i]));
-                        ordered.add(starters.get(order[i]));
+                        chosenStarters.add(starters.get(order[i]));
                     }
                     if(order[i+1] != 0){
                         System.out.println("Ordered: " + mains.get(order[i+1]));
-                        ordered.add(mains.get(order[i+1]));
+                        chosenMains.add(mains.get(order[i+1]));
                     }
                     if(order[i+2] != 0){
                         System.out.println("Ordered: " + desserts.get(order[i+2]));
-                        ordered.add(desserts.get(order[i+2]));
+                        chosenDeserts.add(desserts.get(order[i+2]));
                     }
                 }
 
 
                 // fork 
-                ForkJoinPool kitchen = new ForkJoinPool();
-                makeFood cooked = new makeFood(ordered);
-                System.out.println("You're food is done: " + kitchen.invoke(cooked));
+                Course starter = starterKitchen.orderCourse();
+                Course main = mainKitchen.orderCourse();
+                Course desert = desertKitchen.orderCourse();
+                starter.makeFood(chosenStarters);
+                main.makeFood(chosenMains);
+                desert.makeFood(chosenDeserts);
 
 
                 // send back waiting time

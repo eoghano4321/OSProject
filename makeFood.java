@@ -9,7 +9,7 @@ public class makeFood extends RecursiveTask<String>{
     }
 
     protected String compute(){
-        if(order.size() < 6){
+        if(order.size() < 2){
             return cookFood();
         }else {
             int half = order.size()/2;
