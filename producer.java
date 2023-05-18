@@ -48,26 +48,30 @@ class Producer implements Runnable
                 // get input from client for menu item
 
                 ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
-                int[] order = null;
+                Hashtable<Integer, List<Integer>> inorder = null;
+                List<Integer> order = new ArrayList<Integer>();
                 try {
-                    order = (int[]) objectInputStream.readObject();
+                    inorder = (Hashtable<Integer, List<Integer>>) objectInputStream.readObject();
                 } catch (ClassNotFoundException e) {
                     // handle class not found exception
                 }
+                for(int i = 0; i < inorder.size(); i++){
+                    Integer food = inorder.get(i).get(0);
+
+                    System.out.println("Food: " + food);
+                    order.add(food);
+                }
+
                 List<String> ordered = new ArrayList<String>();
-                for (int i = 0; i < order.length; i = i+3) {
-                    if(order[i] != 0){
-                        System.out.println("Ordered: " + starters.get(order[i]));
-                        ordered.add(starters.get(order[i]));
-                    }
-                    if(order[i+1] != 0){
-                        System.out.println("Ordered: " + mains.get(order[i+1]));
-                        ordered.add(mains.get(order[i+1]));
-                    }
-                    if(order[i+2] != 0){
-                        System.out.println("Ordered: " + desserts.get(order[i+2]));
-                        ordered.add(desserts.get(order[i+2]));
-                    }
+                for (int i = 0; i < order.size(); i = i+3) {
+                    //List<Integer> starter = order.get(i);
+
+                    System.out.println("Ordered: " + starters.get(order.get(i)));
+                    System.out.println("Ordered: " + mains.get(order.get(i+1)));
+                    System.out.println("Ordered: " + desserts.get(order.get(i+2)));
+                    ordered.add(starters.get(order.get(i)));
+                    ordered.add(mains.get(order.get(i+1)));
+                    ordered.add(desserts.get(order.get(i+2)));
                 }
 
 
@@ -93,6 +97,11 @@ class Producer implements Runnable
     }
     
 
+    // Create hashtable of menu items
+    // This could be done in a database but for simplicity we will use a hashtable
+    // This will be the same for all clients
+
+    //create Starters
     public Hashtable<Integer, String> createStarters(){
         Hashtable<Integer, String> starters = new Hashtable<Integer, String>();
         starters.put(1, "Salad");

@@ -57,8 +57,10 @@ class Consumer implements Runnable
                 System.out.println(key + ". " + desserts.get(key));
             }
 
-            int[] order = new int[this.maxOrderSize]; // max order size is 3 * numCustomers
-            for(int j = 0; j < this.maxOrderSize; j = j + 3){
+            
+            Hashtable<Integer, List<Integer>> order = new Hashtable<Integer, List<Integer>>(); 
+            for(int j = 0; j < this.numCustomers; j++){
+                List<Integer> customerOrder = new ArrayList<Integer>();
                 System.out.println("Please enter the number of the starter");
                 int input = this.scanner.nextInt();
                 if(input > 6){
@@ -67,7 +69,8 @@ class Consumer implements Runnable
                 }
                 else{
                     System.out.println("You entered: " + input);
-                    order[j] = input;
+
+                    customerOrder.add(input);
                 }
                 System.out.println("Please enter the number of the main");
                 input = this.scanner.nextInt();
@@ -77,7 +80,7 @@ class Consumer implements Runnable
                 }
                 else{
                     System.out.println("You entered: " + input);
-                    order[j+1] = input;
+                    customerOrder.add(input);
                 }
                 System.out.println("Please enter the number of the dessert");
                 input = this.scanner.nextInt();
@@ -87,9 +90,9 @@ class Consumer implements Runnable
                 }
                 else{
                     System.out.println("You entered: " + input);
-                    order[j+2] = input;
+                    customerOrder.add(input);
                 }
-                
+                order.put(j, customerOrder);
             }
             
 
@@ -109,7 +112,7 @@ class Consumer implements Runnable
             //     }
             // }
             scanner.close();
-            System.out.println("Your order: " + Arrays.toString(order));
+            System.out.println("Your order: " + order);
 
             // Send the order to the server
             OutputStream out = sock.getOutputStream();
